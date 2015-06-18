@@ -51,9 +51,15 @@
 @property (nonatomic, strong) UIColor *cancelButtonHighlightTitleColor;
 
 /**
- Creates a photo tweaks view controller with the image to process.
+ Option to turn on/off crop size adjustment.
  */
-- (instancetype)initWithImage:(UIImage *)image;
+@property (nonatomic, assign) BOOL allowCropEditing;
+
+/**
+ Creates a photo tweaks view controller with the image to process.
+ @param cropsize defines the default frame of the crop frames.
+ */
+- (instancetype)initWithImage:(UIImage *)image withCropSize:(CGSize )cropSize;
 
 @end
 

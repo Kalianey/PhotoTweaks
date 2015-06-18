@@ -33,9 +33,10 @@
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
     UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
-    PhotoTweaksViewController *photoTweaksViewController = [[PhotoTweaksViewController alloc] initWithImage:image];
+    PhotoTweaksViewController *photoTweaksViewController = [[PhotoTweaksViewController alloc] initWithImage:image withCropSize:CGSizeMake(self.window.frame.size.width, 233)];
     photoTweaksViewController.delegate = self;
     photoTweaksViewController.autoSaveToLibray = YES;
+    photoTweaksViewController.allowCropEditing = YES;
     [picker pushViewController:photoTweaksViewController animated:YES];
 }
 

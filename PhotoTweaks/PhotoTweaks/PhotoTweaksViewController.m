@@ -14,16 +14,17 @@
 @interface PhotoTweaksViewController ()
 
 @property (strong, nonatomic) PhotoTweakView *photoView;
-
+@property (nonatomic, assign) CGSize cropSize;
 @end
 
 @implementation PhotoTweaksViewController
 
-- (instancetype)initWithImage:(UIImage *)image
+- (instancetype)initWithImage:(UIImage *)image  withCropSize:(CGSize )cropSize;
 {
     if (self = [super init]) {
         _image = image;
         _autoSaveToLibray = YES;
+        _cropSize = cropSize;
     }
     return self;
 }
@@ -46,9 +47,11 @@
 
 - (void)setupSubviews
 {
-    self.photoView = [[PhotoTweakView alloc] initWithFrame:self.view.bounds image:self.image];
+    self.photoView = [[PhotoTweakView alloc] initWithFrame:self.view.bounds image:self.image cropSize:_cropSize];
+
     self.photoView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     [self.view addSubview:self.photoView];
+    [self.photoView setAllowCropEditing:_allowCropEditing];
 
     UIButton *cancelBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     cancelBtn.frame = CGRectMake(8, CGRectGetHeight(self.view.frame) - 40, 60, 40);

@@ -221,6 +221,8 @@ typedef NS_ENUM(NSInteger, CropCornerType) {
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
+    if(!_allowEditing)
+        return;
     if ([touches count] == 1) {
         [self updateCropLines:NO];
     }
@@ -228,6 +230,8 @@ typedef NS_ENUM(NSInteger, CropCornerType) {
 
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
 {
+    if(!_allowEditing)
+        return;
     if ([touches count] == 1) {
         CGPoint location = [[touches anyObject] locationInView:self];
         CGRect frame = self.frame;
@@ -305,6 +309,8 @@ typedef NS_ENUM(NSInteger, CropCornerType) {
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
+    if(!_allowEditing)
+        return;
     if ([self.delegate respondsToSelector:@selector(cropEnded:)]) {
         [self.delegate cropEnded:self];
     }
@@ -452,7 +458,7 @@ typedef NS_ENUM(NSInteger, CropCornerType) {
 
 @implementation PhotoTweakView
 
-- (instancetype)initWithFrame:(CGRect)frame image:(UIImage *)image
+- (instancetype)initWithFrame:(CGRect)frame image:(UIImage *)image cropSize:(CGSize)cropSize;
 {
     if (self = [super init]) {
         
@@ -500,7 +506,11 @@ typedef NS_ENUM(NSInteger, CropCornerType) {
         _scrollView.photoContentView = self.photoContentView;
         [self.scrollView addSubview:_photoContentView];
         
-        _cropView = [[CropView alloc] initWithFrame:self.scrollView.frame];
+        CGRect cropFrame = self.scrollView.frame;
+        if(cropSize.width != 0.0 && cropSize.height != 0.0){
+            cropFrame = CGRectMake(0.0, 0.0, cropSize.width, cropSize.height);
+        }
+        _cropView = [[CropView alloc] initWithFrame:cropFrame];
         _cropView.center = self.scrollView.center;
         _cropView.delegate = self;
         [self addSubview:_cropView];
@@ -733,4 +743,8 @@ typedef NS_ENUM(NSInteger, CropCornerType) {
     return CGPointMake(point.x - zeroPoint.x, point.y - zeroPoint.y);
 }
 
+- (void)setAllowCropEditing:(BOOL)allowCropEditing
+{
+    [_cropView setAllowEditing:allowCropEditing];
+}
 @end

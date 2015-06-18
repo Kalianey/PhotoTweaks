@@ -25,6 +25,7 @@
 @end
 
 @interface CropView : UIView
+@property (nonatomic, assign) BOOL allowEditing;
 @end
 
 @interface PhotoTweakView : UIView
@@ -33,8 +34,9 @@
 @property (strong, nonatomic) PhotoContentView *photoContentView;
 @property (assign, nonatomic) CGPoint photoContentOffset;
 @property (strong, nonatomic) CropView *cropView;
+@property (assign, nonatomic) BOOL allowCropEditing;
 
-- (instancetype)initWithFrame:(CGRect)frame image:(UIImage *)image;
+- (instancetype)initWithFrame:(CGRect)frame image:(UIImage *)image cropSize:(CGSize)cropSize;
 - (CGPoint)photoTranslation;
 
 @end
