@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @class CropView;
+@class PhotoScrollView;
 
 @interface PhotoContentView : UIView
 
@@ -26,17 +27,29 @@
 
 @interface CropView : UIView
 @property (nonatomic, assign) BOOL allowEditing;
+-(void)setupCropView;
 @end
 
 @interface PhotoTweakView : UIView
 
+@property (strong, nonatomic) IBOutlet PhotoContentView *photoContentView;
+@property (strong, nonatomic) IBOutlet CropView *cropView;
+@property (unsafe_unretained, nonatomic) IBOutlet PhotoScrollView *scrollView;
+
+@property (nonatomic, strong, setter=setImage:) UIImage *image;
+@property (nonatomic, strong) IBOutlet UISlider *slider;
+@property (nonatomic, strong) IBOutlet UIButton *resetBtn;
+
 @property (assign, nonatomic) CGFloat angle;
-@property (strong, nonatomic) PhotoContentView *photoContentView;
 @property (assign, nonatomic) CGPoint photoContentOffset;
-@property (strong, nonatomic) CropView *cropView;
 @property (assign, nonatomic) BOOL allowCropEditing;
 
 - (instancetype)initWithFrame:(CGRect)frame image:(UIImage *)image cropSize:(CGSize)cropSize;
 - (CGPoint)photoTranslation;
+
+- (IBAction)sliderValueChanged:(id)sender;
+- (IBAction)sliderTouchEnded:(id)sender;
+- (IBAction)resetBtnTapped:(id)sender;
+
 
 @end

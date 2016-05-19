@@ -17,6 +17,7 @@
 		CBD5FA671A28425300D4D520 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = CBD5FA651A28425300D4D520 /* LaunchScreen.xib */; };
 		CBD5FA731A28425300D4D520 /* PhotoTweaksTests.m in Sources */ = {isa = PBXBuildFile; fileRef = CBD5FA721A28425300D4D520 /* PhotoTweaksTests.m */; };
 		CBDE57B71A2CAA0700285CFF /* PhotoTweakView.m in Sources */ = {isa = PBXBuildFile; fileRef = CBDE57B61A2CAA0600285CFF /* PhotoTweakView.m */; };
+		F9A4297F1CEB09D8008EDED3 /* PhotoTweaksView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F9A4297E1CEB09D8008EDED3 /* PhotoTweaksView.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +50,7 @@
 		CBD5FA721A28425300D4D520 /* PhotoTweaksTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PhotoTweaksTests.m; sourceTree = "<group>"; };
 		CBDE57B51A2CAA0600285CFF /* PhotoTweakView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoTweakView.h; sourceTree = "<group>"; };
 		CBDE57B61A2CAA0600285CFF /* PhotoTweakView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoTweakView.m; sourceTree = "<group>"; };
+		F9A4297E1CEB09D8008EDED3 /* PhotoTweaksView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PhotoTweaksView.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -137,6 +139,7 @@
 				CBDE57B61A2CAA0600285CFF /* PhotoTweakView.m */,
 				B71706131A32A18D00A6CC10 /* UIColor+Tweak.h */,
 				B71706141A32A18D00A6CC10 /* UIColor+Tweak.m */,
+				F9A4297E1CEB09D8008EDED3 /* PhotoTweaksView.xib */,
 			);
 			path = PhotoTweaks;
 			sourceTree = "<group>";
@@ -223,6 +226,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				00B1B9281ACAA90100A8E285 /* PhotoTweaks.strings in Resources */,
+				F9A4297F1CEB09D8008EDED3 /* PhotoTweaksView.xib in Resources */,
 				CBD5FA621A28425300D4D520 /* Main.storyboard in Resources */,
 				CBD5FA671A28425300D4D520 /* LaunchScreen.xib in Resources */,
 				CBD5FA641A28425300D4D520 /* Images.xcassets in Resources */,

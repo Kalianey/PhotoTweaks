@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+@class PhotoTweakView;
+
 @protocol PhotoTweaksViewControllerDelegate;
 
 /**
@@ -15,10 +17,24 @@
  */
 @interface PhotoTweaksViewController : UIViewController
 
+
+/**
+ IBOUTLETS
+ 
+ */
+@property (unsafe_unretained, nonatomic) IBOutlet UIButton *cancelBtn;
+@property (weak, nonatomic) IBOutlet UIButton *cropBtn;
+@property (weak, nonatomic) IBOutlet PhotoTweakView *photoView;
+@property (nonatomic, assign) CGSize cropSize;
+
+- (IBAction)cancelBtnTapped;
+- (IBAction)saveBtnTapped;
+
+
 /**
  Image to process.
  */
-@property (nonatomic, strong, readonly) UIImage *image;
+@property (nonatomic, strong) UIImage *image;
 
 /**
  Flag indicating whether the image cropped will be saved to photo library automatically. Defaults to YES.
@@ -62,6 +78,11 @@
 - (instancetype)initWithImage:(UIImage *)image withCropSize:(CGSize )cropSize;
 
 @end
+
+
+
+
+
 
 /**
  The photo tweaks controller delegate

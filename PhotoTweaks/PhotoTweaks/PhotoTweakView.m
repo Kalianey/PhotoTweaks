@@ -158,65 +158,70 @@ typedef NS_ENUM(NSInteger, CropCornerType) {
 - (instancetype)initWithFrame:(CGRect)frame
 {
     if (self = [super initWithFrame:frame]) {
-        self.layer.borderColor = [UIColor cropLineColor].CGColor;
-        self.layer.borderWidth = 1;
-        
-        _horizontalCropLines = [NSMutableArray array];
-        for (int i = 0; i < kCropLines; i++) {
-            UIView *line = [UIView new];
-            line.backgroundColor = [UIColor cropLineColor];
-            [_horizontalCropLines addObject:line];
-            [self addSubview:line];
-        }
-        
-        _verticalCropLines = [NSMutableArray array];
-        for (int i = 0; i < kCropLines; i++) {
-            UIView *line = [UIView new];
-            line.backgroundColor = [UIColor cropLineColor];
-            [_verticalCropLines addObject:line];
-            [self addSubview:line];
-        }
-        
-        _horizontalGridLines = [NSMutableArray array];
-        for (int i = 0; i < kGridLines; i++) {
-            UIView *line = [UIView new];
-            line.backgroundColor = [UIColor gridLineColor];
-            [_horizontalGridLines addObject:line];
-            [self addSubview:line];
-        }
-        
-        _verticalGridLines = [NSMutableArray array];
-        for (int i = 0; i < kGridLines; i++) {
-            UIView *line = [UIView new];
-            line.backgroundColor = [UIColor gridLineColor];
-            [_verticalGridLines addObject:line];
-            [self addSubview:line];
-        }
-        
-        _cropLinesDismissed = YES;
-        _gridLinesDismissed = YES;
-        
-        _upperLeft = [[CropCornerView alloc] initWithCornerType:CropCornerTypeUpperLeft];
-        _upperLeft.center = CGPointMake(kCropViewCornerLength / 2, kCropViewCornerLength / 2);
-        _upperLeft.autoresizingMask = UIViewAutoresizingNone;
-        [self addSubview:_upperLeft];
-        
-        _upperRight = [[CropCornerView alloc] initWithCornerType:CropCornerTypeUpperRight];
-        _upperRight.center = CGPointMake(self.frame.size.width - kCropViewCornerLength / 2, kCropViewCornerLength / 2);
-        _upperRight.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
-        [self addSubview:_upperRight];
-        
-        _lowerRight = [[CropCornerView alloc] initWithCornerType:CropCornerTypeLowerRight];
-        _lowerRight.center = CGPointMake(self.frame.size.width - kCropViewCornerLength / 2, self.frame.size.height - kCropViewCornerLength / 2);
-        _lowerRight.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleLeftMargin;
-        [self addSubview:_lowerRight];
-        
-        _lowerLeft = [[CropCornerView alloc] initWithCornerType:CropCornerTypeLowerLeft];
-        _lowerLeft.center = CGPointMake(kCropViewCornerLength / 2, self.frame.size.height - kCropViewCornerLength / 2);
-        _lowerLeft.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
-        [self addSubview:_lowerLeft];
+        [self setupCropView];
     }
     return self;
+}
+
+//Vic
+-(void)setupCropView {
+    self.layer.borderColor = [UIColor cropLineColor].CGColor;
+    self.layer.borderWidth = 1;
+    
+    _horizontalCropLines = [NSMutableArray array];
+    for (int i = 0; i < kCropLines; i++) {
+        UIView *line = [UIView new];
+        line.backgroundColor = [UIColor cropLineColor];
+        [_horizontalCropLines addObject:line];
+        [self addSubview:line];
+    }
+    
+    _verticalCropLines = [NSMutableArray array];
+    for (int i = 0; i < kCropLines; i++) {
+        UIView *line = [UIView new];
+        line.backgroundColor = [UIColor cropLineColor];
+        [_verticalCropLines addObject:line];
+        [self addSubview:line];
+    }
+    
+    _horizontalGridLines = [NSMutableArray array];
+    for (int i = 0; i < kGridLines; i++) {
+        UIView *line = [UIView new];
+        line.backgroundColor = [UIColor gridLineColor];
+        [_horizontalGridLines addObject:line];
+        [self addSubview:line];
+    }
+    
+    _verticalGridLines = [NSMutableArray array];
+    for (int i = 0; i < kGridLines; i++) {
+        UIView *line = [UIView new];
+        line.backgroundColor = [UIColor gridLineColor];
+        [_verticalGridLines addObject:line];
+        [self addSubview:line];
+    }
+    
+    _cropLinesDismissed = YES;
+    _gridLinesDismissed = YES;
+    
+    _upperLeft = [[CropCornerView alloc] initWithCornerType:CropCornerTypeUpperLeft];
+    _upperLeft.center = CGPointMake(kCropViewCornerLength / 2, kCropViewCornerLength / 2);
+    _upperLeft.autoresizingMask = UIViewAutoresizingNone;
+    [self addSubview:_upperLeft];
+    
+    _upperRight = [[CropCornerView alloc] initWithCornerType:CropCornerTypeUpperRight];
+    _upperRight.center = CGPointMake(self.frame.size.width - kCropViewCornerLength / 2, kCropViewCornerLength / 2);
+    _upperRight.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
+    [self addSubview:_upperRight];
+    
+    _lowerRight = [[CropCornerView alloc] initWithCornerType:CropCornerTypeLowerRight];
+    _lowerRight.center = CGPointMake(self.frame.size.width - kCropViewCornerLength / 2, self.frame.size.height - kCropViewCornerLength / 2);
+    _lowerRight.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleLeftMargin;
+    [self addSubview:_lowerRight];
+    
+    _lowerLeft = [[CropCornerView alloc] initWithCornerType:CropCornerTypeLowerLeft];
+    _lowerLeft.center = CGPointMake(kCropViewCornerLength / 2, self.frame.size.height - kCropViewCornerLength / 2);
+    _lowerLeft.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
+    [self addSubview:_lowerLeft];
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
@@ -434,14 +439,14 @@ typedef NS_ENUM(NSInteger, CropCornerType) {
 
 @interface PhotoTweakView () <UIScrollViewDelegate, CropViewDelegate>
 
-@property (nonatomic, strong) PhotoScrollView *scrollView;
 
-@property (nonatomic, strong) UIImage *image;
-@property (nonatomic, strong) UISlider *slider;
-@property (nonatomic, strong) UIButton *resetBtn;
+
+
+
 @property (nonatomic, assign) CGSize originalSize;
 
 @property (nonatomic, assign) BOOL manualZoomed;
+@property BOOL didSetup;
 
 // masks
 @property (nonatomic, strong) UIView *topMask;
@@ -458,63 +463,85 @@ typedef NS_ENUM(NSInteger, CropCornerType) {
 
 @implementation PhotoTweakView
 
-- (instancetype)initWithFrame:(CGRect)frame image:(UIImage *)image cropSize:(CGSize)cropSize;
-{
-    if (self = [super init]) {
-        
-        self.frame = frame;
-        
-        _image = image;
-        
+
+-(id)initWithFrame:(CGRect)frame{
+    if(self = [super initWithFrame:frame]){
+        _didSetup = false;
+    }
+    return self;
+}
+
+-(id)initWithCoder:(NSCoder *)aDecoder{
+    if(self = [super initWithCoder:aDecoder]){
+        _didSetup = false;
+    }
+    return self;
+    
+}
+
+-(void)didMoveToSuperview{
+    [self setupSubviews];
+}
+
+-(void)setImage:(UIImage *)image{
+    _image = image;
+    [self setNeedsLayout];
+}
+
+-(void)layoutSubviews{
+    [self setupSubviews];
+}
+
+-(void)setupSubviews{
+    if (_image != nil && !_didSetup){
         // scale the image
-        _maximumCanvasSize = CGSizeMake(kMaximumCanvasWidthRatio * self.frame.size.width,
-                                            kMaximumCanvasHeightRatio * self.frame.size.height - kCanvasHeaderHeigth);
+        _maximumCanvasSize = CGSizeMake(self.frame.size.width-20,self.frame.size.height-20);
+        _centerY = self.maximumCanvasSize.height / 2;
         
-        CGFloat scaleX = image.size.width / self.maximumCanvasSize.width;
-        CGFloat scaleY = image.size.height / self.maximumCanvasSize.height;
+        CGFloat scaleX = _image.size.width / self.maximumCanvasSize.width;
+        CGFloat scaleY = _image.size.height / self.maximumCanvasSize.height;
         CGFloat scale = MAX(scaleX, scaleY);
-        CGRect bounds = CGRectMake(0, 0, image.size.width / scale, image.size.height / scale);
+        CGRect bounds = CGRectMake(0, 0, _image.size.width / scale, _image.size.height / scale);
         _originalSize = bounds.size;
         
-        _centerY = self.maximumCanvasSize.height / 2 + kCanvasHeaderHeigth;
-        
-        _scrollView = [[PhotoScrollView alloc] initWithFrame:bounds];
-        _scrollView.center = CGPointMake(CGRectGetWidth(self.frame) / 2, self.centerY);
         _scrollView.bounces = YES;
         _scrollView.layer.anchorPoint = CGPointMake(0.5, 0.5);
         _scrollView.alwaysBounceVertical = YES;
         _scrollView.alwaysBounceHorizontal = YES;
         _scrollView.delegate = self;
         _scrollView.minimumZoomScale = 1;
-        _scrollView.maximumZoomScale = 10;
+        _scrollView.maximumZoomScale = 5;
         _scrollView.showsVerticalScrollIndicator = NO;
         _scrollView.showsHorizontalScrollIndicator = NO;
         _scrollView.clipsToBounds = NO;
         _scrollView.contentSize = CGSizeMake(self.scrollView.bounds.size.width, self.scrollView.bounds.size.height);
-        [self addSubview:_scrollView];
-#ifdef kInstruction
+        // [self addSubview:_scrollView];
+    #ifdef kInstruction
         _scrollView.layer.borderColor = [UIColor redColor].CGColor;
         _scrollView.layer.borderWidth = 1;
         _scrollView.showsVerticalScrollIndicator = YES;
         _scrollView.showsHorizontalScrollIndicator = YES;
-#endif
+    #endif
         
-        _photoContentView = [[PhotoContentView alloc] initWithImage:image];
-        _photoContentView.frame = self.scrollView.bounds;
+        _photoContentView = [[PhotoContentView alloc] initWithImage:_image];
+        [self.scrollView addSubview:_photoContentView];
+        _photoContentView.frame = bounds;
         _photoContentView.backgroundColor = [UIColor clearColor];
         _photoContentView.userInteractionEnabled = YES;
         _scrollView.photoContentView = self.photoContentView;
-        [self.scrollView addSubview:_photoContentView];
         
-        CGRect cropFrame = self.scrollView.frame;
-        if(cropSize.width != 0.0 && cropSize.height != 0.0){
-            cropFrame = CGRectMake(0.0, 0.0, cropSize.width, cropSize.height);
-        }
-        _cropView = [[CropView alloc] initWithFrame:cropFrame];
-        _cropView.center = self.scrollView.center;
+        
+        
+        _cropView.frame = bounds;
+        _cropView.allowEditing = YES;
         _cropView.delegate = self;
-        [self addSubview:_cropView];
+        _cropView.backgroundColor = [UIColor clearColor];
+        //Vic
         
+        [_cropView setupCropView];
+        
+        
+        //[self addSubview:_cropView];
         UIColor *maskColor = [UIColor maskColor];
         _topMask = [UIView new];
         _topMask.backgroundColor = maskColor;
@@ -528,31 +555,22 @@ typedef NS_ENUM(NSInteger, CropCornerType) {
         _rightMask = [UIView new];
         _rightMask.backgroundColor = maskColor;
         [self addSubview:_rightMask];
-        [self updateMasks:NO];
         
-        _slider = [[UISlider alloc] initWithFrame:CGRectMake(0, 0, 240, 20)];
-        _slider.center = CGPointMake(CGRectGetWidth(self.bounds) / 2, CGRectGetHeight(self.bounds) - 135);
+
         _slider.minimumValue = 0.0f;
         _slider.maximumValue = 1.0f;
         [_slider addTarget:self action:@selector(sliderValueChanged:) forControlEvents:UIControlEventValueChanged];
         [_slider addTarget:self action:@selector(sliderTouchEnded:) forControlEvents:UIControlEventTouchUpInside];
         _slider.value = 0.5;
-        [self addSubview:_slider];
-        
-        _resetBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        _resetBtn.frame = CGRectMake(0, 0, 60, 20);
-        _resetBtn.center = CGPointMake(CGRectGetWidth(self.bounds) / 2, CGRectGetHeight(self.bounds) - 95);
-        _resetBtn.titleLabel.font = [UIFont systemFontOfSize:14];
-        [_resetBtn setTitleColor:[UIColor resetButtonColor] forState:UIControlStateNormal];
-        [_resetBtn setTitleColor:[UIColor resetButtonHighlightedColor] forState:UIControlStateHighlighted];
-        [_resetBtn setTitle:NSLocalizedStringFromTable(@"RESET", @"PhotoTweaks", nil) forState:UIControlStateNormal];
+
         [_resetBtn addTarget:self action:@selector(resetBtnTapped:) forControlEvents:UIControlEventTouchUpInside];
-        [self addSubview:_resetBtn];
         
         _originalPoint = [self convertPoint:self.scrollView.center toView:self];
+        _didSetup = true;
     }
-    return self;
+    [self updateMasks:NO];
 }
+
 
 - (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event
 {
@@ -613,6 +631,7 @@ typedef NS_ENUM(NSInteger, CropCornerType) {
     self.scrollView.bounds = CGRectMake(0, 0, width, height);
     CGPoint newContentOffset = CGPointMake(contentOffsetCenter.x - self.scrollView.bounds.size.width / 2, contentOffsetCenter.y - self.scrollView.bounds.size.height / 2);
     self.scrollView.contentOffset = newContentOffset;
+    
     
     [UIView animateWithDuration:0.25 animations:^{
         // animate crop view

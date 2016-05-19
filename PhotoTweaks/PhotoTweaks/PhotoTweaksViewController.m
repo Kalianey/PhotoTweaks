@@ -13,8 +13,8 @@
 
 @interface PhotoTweaksViewController ()
 
-@property (strong, nonatomic) PhotoTweakView *photoView;
-@property (nonatomic, assign) CGSize cropSize;
+
+
 @end
 
 @implementation PhotoTweaksViewController
@@ -23,7 +23,7 @@
 {
     if (self = [super init]) {
         _image = image;
-        _autoSaveToLibray = YES;
+        
         _cropSize = cropSize;
     }
     return self;
@@ -38,50 +38,21 @@
     if ([self respondsToSelector:@selector(automaticallyAdjustsScrollViewInsets)]) {
         self.automaticallyAdjustsScrollViewInsets = NO;
     }
-
+    
+    _autoSaveToLibray = YES;
     self.view.clipsToBounds = YES;
     self.view.backgroundColor = [UIColor photoTweakCanvasBackgroundColor];
 
-    [self setupSubviews];
-}
-
-- (void)setupSubviews
-{
-    self.photoView = [[PhotoTweakView alloc] initWithFrame:self.view.bounds image:self.image cropSize:_cropSize];
-
-    self.photoView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    [self.view addSubview:self.photoView];
+    _photoView.image = _image;
     [self.photoView setAllowCropEditing:_allowCropEditing];
-
-    UIButton *cancelBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    cancelBtn.frame = CGRectMake(8, CGRectGetHeight(self.view.frame) - 40, 60, 40);
-    cancelBtn.titleLabel.textAlignment = NSTextAlignmentLeft;
-    [cancelBtn setTitle:NSLocalizedStringFromTable(@"Cancel", @"PhotoTweaks", nil) forState:UIControlStateNormal];
-    UIColor *cancelTitleColor = !self.cancelButtonTitleColor ?
-                                [UIColor cancelButtonColor] : self.cancelButtonTitleColor;
-    [cancelBtn setTitleColor:cancelTitleColor forState:UIControlStateNormal];
-    UIColor *cancelHighlightTitleColor = !self.cancelButtonHighlightTitleColor ?
-                                        [UIColor cancelButtonHighlightedColor] : self.cancelButtonHighlightTitleColor;
-    [cancelBtn setTitleColor:cancelHighlightTitleColor forState:UIControlStateHighlighted];
-    cancelBtn.titleLabel.font = [UIFont systemFontOfSize:17];
-    [cancelBtn addTarget:self action:@selector(cancelBtnTapped) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:cancelBtn];
-
-    UIButton *cropBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    cropBtn.titleLabel.textAlignment = NSTextAlignmentRight;
-    cropBtn.frame = CGRectMake(CGRectGetWidth(self.view.frame) - 60, CGRectGetHeight(self.view.frame) - 40, 60, 40);
-    [cropBtn setTitle:NSLocalizedStringFromTable(@"Done", @"PhotoTweaks", nil) forState:UIControlStateNormal];
-    UIColor *saveButtonTitleColor = !self.saveButtonTitleColor ?
-                                [UIColor saveButtonColor] : self.saveButtonTitleColor;
-    [cropBtn setTitleColor:saveButtonTitleColor forState:UIControlStateNormal];
-
-    UIColor *saveButtonHighlightTitleColor = !self.saveButtonHighlightTitleColor ?
-                                            [UIColor saveButtonHighlightedColor] : self.saveButtonHighlightTitleColor;
-    [cropBtn setTitleColor:saveButtonHighlightTitleColor forState:UIControlStateHighlighted];
-    cropBtn.titleLabel.font = [UIFont systemFontOfSize:17];
-    [cropBtn addTarget:self action:@selector(saveBtnTapped) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:cropBtn];
 }
+
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [_photoView performSelector:@selector(resetBtnTapped:) withObject:nil afterDelay:0.1];
+}
+
 
 - (void)cancelBtnTapped
 {
